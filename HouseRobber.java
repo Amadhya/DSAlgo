@@ -10,25 +10,14 @@ class Solution {
             return Math.max(nums[0], nums[1]);
         }
 
-        int[] dp = new int[len];
-        dp[0] = nums[0];
-        dp[1] = nums[1];
+        int[] dp = new int[len + 1];
+        dp[0] = 0;
+        dp[1] = nums[0];
 
-        for (int i = 2; i < len; i++) {
-            int curr = 0;
-            for (int j = i - 2; j >=0; j--) {
-                curr = Math.max(curr, dp[j]);
-            }
-            dp[i] = curr + nums[i];
+        for (int i = 2; i < len + 1; i++) {
+            dp[i] = Math.max(dp[i-2] + nums[i - 1], dp[i - 1]);
         }
-
-
-        int maxAmount = 0;
-
-        for (int i = 0; i < len; i++) {
-            maxAmount = Math.max(maxAmount, dp[i]);
-        }
-
-        return maxAmount;
+        
+        return dp[len];
     }
 }
